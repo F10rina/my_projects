@@ -1,0 +1,56 @@
+from random import *
+
+def is_valid(answer, num_max):
+
+    if answer.isdigit() and 1 <= int(answer) <= int(num_max) and int(num_max) > 1:
+        return True
+    else:
+        return False
+
+def game():
+    count = 1
+    print('До какого числа можно загадать?')
+    num_max = input()
+    while True:
+        if is_valid(num_max, num_max) == True:
+            num_random = randint(1, int(num_max))
+            break
+        else:
+            print('А может быть все-таки введем целое число больше 1?')
+            num_max = input()
+
+    print(num_random)
+    print('Я загадал число от 1 до',num_max)
+    while True:
+        print('Какое число я загадал?')
+        answer = input()
+        if is_valid(answer, num_max) == False:
+            print('А может быть все-таки введем целое число от 1 до', num_max, '?')
+        else:
+            answer_user = int(answer)
+            if answer_user == num_random:
+                print("Вы угадали, поздравляем!")
+                print('Вам понадобилось', count, 'попыток')
+                break
+            if answer_user < num_random:
+                print('Ваше число меньше загаданного, попробуйте еще разок')
+                count += 1
+            if answer_user > num_random:
+                print('Ваше число больше загаданного, попробуйте еще разок')
+                count += 1
+
+    print('Повторим? да/нет')
+    game_answer = input()
+    while True:
+        if game_answer.lower() == 'да':
+            game()
+        elif game_answer.lower() == 'нет':
+            print('Спасибо, что играли в числовую угадайку. Прощавайте =)')
+            break
+        else:
+            print('Введите да или нет')
+            game_answer = input()
+
+
+print('Добро пожаловать в числовую угадайку')
+game()
